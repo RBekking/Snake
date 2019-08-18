@@ -52,7 +52,7 @@ private:
 	static constexpr int INIT_NEXT_LOCATION_Y = 0;
 	static constexpr int INIT_SEGMENT_COLOR_VAL = 128;
 
-	void _ReColor(const Color head_color, const Color body_color);
+	void _ReColor(const Color& head_color, const Color& body_color);
 	Color _CalcSegmentColor(const int n_segment, const Color& base_color);
 
 private:

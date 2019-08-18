@@ -172,9 +172,9 @@ void Player::Decay(const int frame_counter, const int max_death_frames)
 			dim_factor = (double(max_death_frames) - double(frame_counter)) / double(max_death_frames);
 		}
 		else {
-			dim_factor = 0.1;
+			dim_factor = 1;
 		}
-		_ReColor(Colors::DimColor(Colors::White, dim_factor), Colors::Green);
+		_ReColor(Colors::DimColor(Colors::White, dim_factor), Colors::DimColor(Colors::Gray, dim_factor));
 	}
 }
 
@@ -191,11 +191,16 @@ Color Player::_CalcSegmentColor(const int n_segment, const Color& base_color)
 	return Colors::DimColor(base_color, double(segment_color_intensity_) / 255);
 }
 
-void Player::_ReColor(const Color head_color, const Color body_color)
+void Player::_ReColor(const Color& head_color, const Color& body_color)
 {
 	segment_color_intensity_ = INIT_SEGMENT_COLOR_VAL;
 	segments_[0].Init(segments_[0].GetLocation(), head_color);
 	for (int i = 1; i < n_segments_; ++i) {
-		segments_[i].Init(segments_[i].GetLocation(), _CalcSegmentColor(i, body_color));
+		if (!collided_) {
+			segments_[i].Init(segments_[i].GetLocation(), _CalcSegmentColor(i, body_color));
+		}
+		else {
+			segments_[i].Init(segments_[i].GetLocation(), body_color);
+		}
 	}
 }

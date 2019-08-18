@@ -13,4 +13,4 @@ I'm practicing my OO skills with this one.
 
 ## Known issues:
 - Sometimes the snake doesn't eat the food but passes right through it
-- Collides with tail even when it appears to not touch
+- Collides with tail even when it appears not to touch

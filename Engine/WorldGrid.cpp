@@ -1,6 +1,4 @@
 #include "WorldGrid.h"
-#include "Location.h"
-#include "Graphics.h"
 
 void WorldGrid::DrawCell(const Location& loc, const Color c)
 {

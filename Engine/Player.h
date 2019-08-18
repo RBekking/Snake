@@ -2,14 +2,8 @@
 
 #include "Location.h"
 #include "WorldGrid.h"
-#include "InputBuffer.h"
+#include "ColorManager.h"
 #include <random>
-
-template <typename T>
-T constrain(const T var, const T low_bound, const T high_bound)
-{
-	return (var < low_bound ? low_bound : (var > high_bound ? high_bound : var));
-}
 
 class Player
 {
@@ -17,7 +11,6 @@ private:
 	class Segment 
 	{
 	public:
-		void Reset();
 		void Init(const Location& loc, const Color& color);
 		void MoveBy(const Location& delta_loc);
 		void Follow(const Segment& next);
@@ -31,11 +24,12 @@ private:
 	};
 
 public:
-	static constexpr int N_SEGMENTS_MAX = 100;//(WorldGrid::WIDTH * WorldGrid::HEIGHT) - 1;
+	static constexpr int N_SEGMENTS_MAX = 100; //(WorldGrid::WIDTH * WorldGrid::HEIGHT) - 1;
 
 	explicit Player(const Location& loc);
 	void Reset();
 	void WithGrid(WorldGrid& grid);
+	void WithColorManager(ColorManager& colors);
 	void WithRNG(std::mt19937& rng);
 	void MoveBy(const Location& delta_loc);
 	void Grow();
@@ -56,11 +50,10 @@ private:
 	Color _CalcSegmentColor(const int n_segment, const Color& base_color);
 
 private:
-	Color			head_color_		{ Colors::Yellow };
-	Color			body_color_		{ Colors::Green };
 	Location		start_location_ { 0,0 };
 	int				n_segments_		{ INIT_N_SEGMENTS };
 	WorldGrid*		grid_			{ nullptr };
+	ColorManager*	colors_			{ nullptr };
 	Location		next_location_	{ Location(INIT_NEXT_LOCATION_X, INIT_NEXT_LOCATION_Y) };
 	bool			collided_		{ false };
 	std::mt19937*	rng_			{ nullptr };

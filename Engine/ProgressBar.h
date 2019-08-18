@@ -1,8 +1,6 @@
 #pragma once
 
 #include "GraphicalEntity.h"
-#include "Location.h"
-#include "Graphics.h"
 #include "WorldGrid.h"
 #include "Player.h"
 

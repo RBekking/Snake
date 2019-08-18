@@ -1,5 +1,4 @@
 #include "Target.h"
-#include <random>
 
 Target::Target() :
 	Target(Location{ 0, 0 })

@@ -20,10 +20,6 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
-#include "Location.h"
-#include "WorldGrid.h"
-#include "Player.h"
-#include "InputBuffer.h"
 #include <time.h>
 
 Game::Game(MainWindow& wnd)
@@ -33,6 +29,7 @@ Game::Game(MainWindow& wnd)
 {
 	grid.WithGraphics(gfx);
 	player.WithGrid(grid);
+	player.WithColorManager(colormgr);
 	player.WithRNG(rng);
 	player.Reset();
 
@@ -45,7 +42,7 @@ Game::Game(MainWindow& wnd)
 
 	progress_bar.WithGraphics(gfx);
 	progress_bar.WithPlayer(player);
-	
+
 }
 
 void Game::Go()

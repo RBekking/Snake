@@ -29,7 +29,9 @@
 #include "Location.h"
 #include "InputBuffer.h"
 #include "ProgressBar.h"
+#include "ColorManager.h"
 #include <random>
+#include <time.h>
 
 class Game
 {
@@ -64,6 +66,7 @@ private:
 	Player       player			{ Location{PLAYER_INITIAL_X, PLAYER_INITIAL_Y} };
 	Target		 targets[N_TARGETS];
 	InputBuffer	 in_buff		{ Location{1, 0} };
+	ColorManager colormgr		{ 0 };
 	int          frame_counter  { 0 };
 	std::mt19937 rng            { std::random_device()() };
 };

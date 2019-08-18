@@ -17,7 +17,9 @@ public:
 	void DrawCell(const Location& loc, const Location& offset, const Color c);
 	void DrawFilledCell(const Location& loc, const Color c);
 	void DrawFilledCell(const Location& loc, const Location& offset, const Color c);
-	void Draw(const unsigned int frame_counter = 0) override;
+	void DrawFg(const unsigned int frame_counter = 0);
+	void DrawBg(const unsigned int frame_counter = 0);
+	void Draw(const unsigned int frame_counter = 0) override {} ;
 	bool CheckInScreenBounds(const Location& loc);
 	bool CheckInGridBounds(const Location& loc);
 };

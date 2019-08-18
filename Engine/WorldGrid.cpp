@@ -38,7 +38,7 @@ void WorldGrid::DrawFilledCell(const Location& loc, const Location& offset, cons
 	}
 }
 
-void WorldGrid::Draw(const unsigned int frame_counter)
+void WorldGrid::DrawFg(const unsigned int frame_counter)
 {
 	unsigned char c;
 	for (int i = 0; i < 5; ++i) {
@@ -49,6 +49,11 @@ void WorldGrid::Draw(const unsigned int frame_counter)
 		c = static_cast<unsigned char>((255 / 10) * (10 - i));
 		gfx_->DrawRectangleDim(location_.GetX() - i, location_.GetY() - i, (WIDTH * CELL_SIZE) + (2 * i), (HEIGHT * CELL_SIZE) + (2 * i), Color{ c, c, c });
 	}
+}
+
+void WorldGrid::DrawBg(const unsigned int frame_counter)
+{
+	gfx_->DrawFilledRectDim(location_.GetX() + 1, location_.GetY() + 1, (WIDTH * CELL_SIZE) - 2, (HEIGHT * CELL_SIZE) - 2, Color{ 19, 19, 57 });
 }
 
 bool WorldGrid::CheckInScreenBounds(const Location& loc)

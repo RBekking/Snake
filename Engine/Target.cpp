@@ -9,7 +9,7 @@ Target::Target() :
 Target::Target(const Location& loc) :
 	GridEntity(loc),
 	player_(nullptr),
-	color_(Colors::Orange),
+	color_(DEFAULT_COLOR),
 	rng_(std::random_device()()),
 	x_dist_(std::uniform_int_distribution<int>(0, WorldGrid::WIDTH - 1)),
 	y_dist_(std::uniform_int_distribution<int>(0, WorldGrid::HEIGHT - 1)),
@@ -51,6 +51,23 @@ void Target::HandleCollection()
 			Reposition();
 		}
 		else {
+			Color new_color;
+			if (player_->GetLength() == 5) {
+				new_color = Colors::Blue;
+				_ReColor(new_color);
+			}
+			else if (player_->GetLength() == 7) {
+				new_color = Colors::LightGreen;
+				_ReColor(new_color);
+			}
+			else if (player_->GetLength() == 9) {
+				new_color = Colors::Pink;
+				_ReColor(new_color);
+			}
+			else if (player_->GetLength() == 11) {
+				new_color = Colors::Magenta;
+				_ReColor(new_color);
+			}
 			player_->Grow();
 			Reposition();
 		}
@@ -66,4 +83,9 @@ void Target::Reposition()
 	do {
 		location_ = Location{ x_dist_(rng_), y_dist_(rng_) };
 	} while (player_->LocationIsOnSnake(location_));
+}
+
+void Target::_ReColor(const Color& new_color)
+{
+	color_ = new_color;
 }

@@ -81,11 +81,12 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {	
+	grid.DrawBg();
 	player.Draw(frame_counter);
 	for (int i = 0; i < N_TARGETS; ++i) {
 		targets[i].Draw(frame_counter);
 	}
-	grid.Draw();
+	grid.DrawFg();
 	progress_bar.Draw(frame_counter);
 }
 
@@ -109,5 +110,8 @@ void Game::HandleInput()
 void Game::RestartGame()
 {
 	player.Reset();
+	for (int i = 0; i < N_TARGETS; ++i) {
+		targets[i].Reposition();
+	}
 	in_buff.Reset(Location{1, 0});
 }

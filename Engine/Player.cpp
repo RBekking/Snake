@@ -169,7 +169,7 @@ void Player::Decay(const int frame_counter, const int max_death_frames)
 	if (frame_counter != last_frame_counter) {
 		last_frame_counter = frame_counter;
 		if (max_death_frames >= 0) {
-			dim_factor = double(max_death_frames - frame_counter) / double(max_death_frames);
+			dim_factor = (double(max_death_frames) - double(frame_counter)) / double(max_death_frames);
 		}
 		else {
 			dim_factor = 0.1;

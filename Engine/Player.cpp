@@ -31,22 +31,10 @@ Location Player::Segment::GetLocation() const
 	return location_;
 }
 
-Player::Player(const Location& loc)
+void Player::Reset(const Location &start_location)
 {
 	n_segments_ = INIT_N_SEGMENTS;
-	start_location_ = loc;
-	next_location_ = loc;
-	collided_ = false;
-	segments_[0].Init(loc, colors_->GetSnakeHead());
-	for (int i = 1; i < n_segments_; ++i) {
-		segments_[i].Init(loc, _CalcSegmentColor(i, colors_->GetSnakeBody()));
-	}
-}
-
-void Player::Reset()
-{
-	n_segments_ = INIT_N_SEGMENTS;
-	next_location_ = start_location_;
+	next_location_ = start_location;
 	collided_ = false;
 	segment_color_intensity_ = INIT_SEGMENT_COLOR_VAL;
 	segments_[0].Init(start_location_, colors_->GetSnakeHead());

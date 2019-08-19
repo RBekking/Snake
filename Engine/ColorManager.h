@@ -1,28 +1,6 @@
 #pragma once
 
 #include "Graphics.h"
-#include "Player.h"
-
-//if (n_segments_ == 5) {
-//	head_color_ = Colors::LightBlue;
-//	body_color_ = Colors::Purple;
-//	_ReColor(head_color_, body_color_);
-//}
-//else if (n_segments_ == 7) {
-//	head_color_ = Colors::Yellow;
-//	body_color_ = Colors::Red;
-//	_ReColor(head_color_, body_color_);
-//}
-//else if (n_segments_ == 9) {
-//	head_color_ = Colors::Cyan;
-//	body_color_ = Colors::Teal;
-//	_ReColor(head_color_, body_color_);
-//}
-//else if (n_segments_ == 11) {
-//	head_color_ = Colors::Pink;
-//	body_color_ = Colors::LightGreen;
-//	_ReColor(head_color_, body_color_);
-//}
 
 class ColorManager
 {
@@ -30,8 +8,7 @@ public:
 	explicit ColorManager(const int level = 0);
 	ColorManager(const ColorManager& copy) = delete;
 	ColorManager& operator=(const ColorManager& rhs) = delete;
-	void WithPlayer(Player& player);
-	void UpdateLevel();
+	void  UpdateLevel(const int player_length);
 	Color GetSnakeHead() const;
 	Color GetSnakeBody() const;
 	Color GetSnakeDeadHead() const;
@@ -47,8 +24,7 @@ private:
 		3, 10, 20, 30, 40, 50, 60, 70, 80, 90
 	};
 
-	int		level_	{ 0 };
-	Player*	player_	{ nullptr };
+	int		level_;
 
 	typedef struct {
 		Color world_grid;
@@ -69,15 +45,15 @@ private:
 			Colors::LightGreen,
 			Colors::White,
 			Colors::Gray,
-			Colors::Orange,
+			Colors::Green,
 			Colors::Green,
 			Colors::Gray,
 			Colors::LightGreen
 		},
 		{
 			{ 19, 19, 57 },
-			Colors::Yellow,
-			Colors::LightGreen,
+			Colors::Pink,
+			Colors::Red,
 			Colors::White,
 			Colors::Gray,
 			Colors::Orange,
@@ -87,8 +63,8 @@ private:
 		},
 		{
 			{ 19, 19, 57 },
-			Colors::Yellow,
-			Colors::LightGreen,
+			Colors::White,
+			Colors::LightBlue,
 			Colors::White,
 			Colors::Gray,
 			Colors::Orange,

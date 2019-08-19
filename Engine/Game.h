@@ -37,7 +37,6 @@
 class Game
 {
 public:
-
 	Game( class MainWindow& wnd );
 	Game( const Game& ) = delete;
 	Game& operator=( const Game& ) = delete;
@@ -64,7 +63,7 @@ private:
 
 	WorldGrid    grid			{ Location{150, 60} };
 	ProgressBar  progress_bar	{ Location{150, 40} };
-	Player       player			{ Location{PLAYER_INITIAL_X, PLAYER_INITIAL_Y} };
+	Player       player;
 	Target		 targets[N_TARGETS];
 	InputBuffer	 in_buff		{ Location{1, 0} };
 	ColorManager colormgr		{ 0 };

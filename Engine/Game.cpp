@@ -25,11 +25,12 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd)
 {
+	colormgr.UpdateLevel(0);
 	grid.WithGraphics(gfx);
 	player.WithGrid(grid);
 	player.WithColorManager(colormgr);
 	player.WithRNG(rng);
-	player.Reset();
+	player.Reset(Location{PLAYER_INITIAL_X, PLAYER_INITIAL_Y});
 
 	for (int i = 0; i < N_TARGETS; ++i) {
 		targets[i].WithGrid(grid);
@@ -40,7 +41,6 @@ Game::Game(MainWindow& wnd)
 
 	progress_bar.WithGraphics(gfx);
 	progress_bar.WithPlayer(player);
-	//colormgr.WithPlayer(player);
 }
 
 void Game::Go()
@@ -104,7 +104,8 @@ void Game::HandleInput()
 
 void Game::RestartGame()
 {
-	player.Reset();
+	colormgr.UpdateLevel(0);
+	player.Reset(Location{ PLAYER_INITIAL_X, PLAYER_INITIAL_Y});
 	for (int i = 0; i < N_TARGETS; ++i) {
 		targets[i].Reposition();
 	}

@@ -5,14 +5,17 @@ ColorManager::ColorManager(const int level) :
 {
 }
 
-void ColorManager::WithPlayer(Player& player)
+void ColorManager::UpdateLevel(const int player_length)
 {
-	player_ = &player;
-}
+	level_ = 0;
+	for (int i = 0; i < N_LEVELS; ++i) {
+		if (player_length == level_to_length_map[i]) {
+			level_ = i;
+			return;
+		}
+	}
 
-void ColorManager::UpdateLevel()
-{
-	level_ = player_->GetLength();
+	return;
 }
 
 Color ColorManager::GetSnakeHead() const

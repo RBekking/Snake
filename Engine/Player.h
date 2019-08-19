@@ -26,8 +26,8 @@ private:
 public:
 	static constexpr int N_SEGMENTS_MAX = 100; //(WorldGrid::WIDTH * WorldGrid::HEIGHT) - 1;
 
-	explicit Player(const Location& loc);
-	void Reset();
+	Player() = default;
+	void Reset(const Location& start_location);
 	void WithGrid(WorldGrid& grid);
 	void WithColorManager(ColorManager& colors);
 	void WithRNG(std::mt19937& rng);

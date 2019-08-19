@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Player.h"
-#include "Location.h"
 #include "GridEntity.h"
+#include "Location.h"
+#include "Player.h"
 #include <random>
 
 class Target : public GridEntity

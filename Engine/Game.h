@@ -20,14 +20,15 @@
  ******************************************************************************************/
 #pragma once
 
+#include "MainWindow.h"
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "Location.h"
+#include "InputBuffer.h"
 #include "WorldGrid.h"
 #include "Player.h"
 #include "Target.h"
-#include "Location.h"
-#include "InputBuffer.h"
 #include "ProgressBar.h"
 #include "ColorManager.h"
 #include <random>

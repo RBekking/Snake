@@ -10,42 +10,47 @@ void ColorManager::WithPlayer(Player& player)
 	player_ = &player;
 }
 
+void ColorManager::UpdateLevel()
+{
+	level_ = player_->GetLength();
+}
+
 Color ColorManager::GetSnakeHead() const
 {
-	return Color();
+	return colors_[level_].snake_head;
 }
 
 Color ColorManager::GetSnakeBody() const
 {
-	return Color();
+	return colors_[level_].snake_body;
 }
 
 Color ColorManager::GetSnakeDeadHead() const
 {
-	return Color();
+	return colors_[level_].snake_dead_head;
 }
 
 Color ColorManager::GetSnakeDeadBody() const
 {
-	return Color();
+	return colors_[level_].snake_dead_body;
 }
 
 Color ColorManager::GetTarget() const
 {
-	return Color();
+	return colors_[level_].target;
 }
 
 Color ColorManager::GetProgressBar() const
 {
-	return Color();
+	return colors_[level_].progress_bar;
 }
 
 Color ColorManager::GetProgressFrame() const
 {
-	return Color();
+	return colors_[level_].progress_frame;
 }
 
 Color ColorManager::GetWorldGridFrame() const
 {
-	return Color();
+	return colors_[level_].worldgrid_frame;
 }

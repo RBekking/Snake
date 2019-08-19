@@ -24,18 +24,6 @@
 //	_ReColor(head_color_, body_color_);
 //}
 
-struct ColorMap {
-	Color world_grid;
-	Color snake_head;
-	Color snake_body;
-	Color snake_dead_head;
-	Color snake_dead_body;
-	Color target;
-	Color progress_bar;
-	Color progress_frame;
-	Color worldgrid_frame;
-};
-
 class ColorManager
 {
 public:
@@ -43,6 +31,7 @@ public:
 	ColorManager(const ColorManager& copy) = delete;
 	ColorManager& operator=(const ColorManager& rhs) = delete;
 	void WithPlayer(Player& player);
+	void UpdateLevel();
 	Color GetSnakeHead() const;
 	Color GetSnakeBody() const;
 	Color GetSnakeDeadHead() const;

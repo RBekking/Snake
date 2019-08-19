@@ -18,9 +18,7 @@
  *	You should have received a copy of the GNU General Public License					  *
  *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
  ******************************************************************************************/
-#include "MainWindow.h"
 #include "Game.h"
-#include <time.h>
 
 Game::Game(MainWindow& wnd)
 	:
@@ -42,7 +40,7 @@ Game::Game(MainWindow& wnd)
 
 	progress_bar.WithGraphics(gfx);
 	progress_bar.WithPlayer(player);
-
+	//colormgr.WithPlayer(player);
 }
 
 void Game::Go()

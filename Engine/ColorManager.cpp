@@ -1,21 +1,35 @@
 #include "ColorManager.h"
 
 ColorManager::ColorManager(const int level) :
-	level_(level)
+	level_(level),
+	updated_(false)
 {
 }
 
 void ColorManager::UpdateLevel(const int player_length)
 {
-	level_ = 0;
 	for (int i = 0; i < N_LEVELS; ++i) {
 		if (player_length == level_to_length_map[i]) {
 			level_ = i;
+			updated_ = true;
 			return;
 		}
 	}
 
 	return;
+}
+
+bool ColorManager::IsUpdated()
+{
+	bool ret_val = updated_;
+	updated_ = false;
+
+	return ret_val;
+}
+
+Color ColorManager::GetWorldGrid() const
+{
+	return colors_[level_].world_grid;
 }
 
 Color ColorManager::GetSnakeHead() const

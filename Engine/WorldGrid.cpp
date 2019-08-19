@@ -1,5 +1,10 @@
 #include "WorldGrid.h"
 
+void WorldGrid::WithColorManager(ColorManager& colors)
+{
+	colors_ = &colors;
+}
+
 void WorldGrid::DrawCell(const Location& loc, const Color c)
 {
 	if (CheckInGridBounds(loc)) {
@@ -51,7 +56,7 @@ void WorldGrid::DrawFg(const unsigned int frame_counter)
 
 void WorldGrid::DrawBg(const unsigned int frame_counter)
 {
-	gfx_->DrawFilledRectDim(location_.GetX() + 1, location_.GetY() + 1, (WIDTH * CELL_SIZE) - 2, (HEIGHT * CELL_SIZE) - 2, Color{ 19, 19, 57 });
+	gfx_->DrawFilledRectDim(location_.GetX() + 1, location_.GetY() + 1, (WIDTH * CELL_SIZE) - 2, (HEIGHT * CELL_SIZE) - 2, colors_->GetWorldGrid());
 }
 
 bool WorldGrid::CheckInScreenBounds(const Location& loc)

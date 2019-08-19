@@ -9,6 +9,8 @@ public:
 	ColorManager(const ColorManager& copy) = delete;
 	ColorManager& operator=(const ColorManager& rhs) = delete;
 	void  UpdateLevel(const int player_length);
+	bool  IsUpdated();
+	Color GetWorldGrid() const;
 	Color GetSnakeHead() const;
 	Color GetSnakeBody() const;
 	Color GetSnakeDeadHead() const;
@@ -21,10 +23,11 @@ public:
 private:
 	static constexpr int N_LEVELS = 10;
 	static constexpr int level_to_length_map[N_LEVELS] {
-		3, 10, 20, 30, 40, 50, 60, 70, 80, 90
+		3, 5, 7, 30, 40, 50, 60, 70, 80, 90
 	};
 
 	int		level_;
+	bool	updated_;
 
 	typedef struct {
 		Color world_grid;
@@ -40,8 +43,8 @@ private:
 
 	ColorMap colors_[N_LEVELS] {
 		{
-			{ 19, 19, 57 },
-			Colors::Yellow,
+			{ 255, 19, 57 },
+			Colors::White,
 			Colors::LightGreen,
 			Colors::White,
 			Colors::Gray,
@@ -51,7 +54,7 @@ private:
 			Colors::LightGreen
 		},
 		{
-			{ 19, 19, 57 },
+			{ 19, 255, 57 },
 			Colors::Pink,
 			Colors::Red,
 			Colors::White,
@@ -62,12 +65,12 @@ private:
 			Colors::LightGreen
 		},
 		{
-			{ 19, 19, 57 },
+			{ 19, 19, 255 },
 			Colors::White,
 			Colors::LightBlue,
 			Colors::White,
 			Colors::Gray,
-			Colors::Orange,
+			Colors::Red,
 			Colors::Green,
 			Colors::Gray,
 			Colors::LightGreen

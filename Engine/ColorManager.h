@@ -8,8 +8,8 @@ public:
 	explicit ColorManager(const int level = 0);
 	ColorManager(const ColorManager& copy) = delete;
 	ColorManager& operator=(const ColorManager& rhs) = delete;
-	void  UpdateLevel(const int player_length);
-	bool  IsUpdated();
+	void  CheckPlayerLength(const int player_length);
+	bool  LevelUpdated();
 	Color GetWorldGrid() const;
 	Color GetSnakeHead() const;
 	Color GetSnakeBody() const;
@@ -21,9 +21,9 @@ public:
 	Color GetWorldGridFrame() const;
 
 private:
-	static constexpr int N_LEVELS = 10;
+	static constexpr int N_LEVELS = 5;
 	static constexpr int level_to_length_map[N_LEVELS] {
-		3, 5, 7, 30, 40, 50, 60, 70, 80, 90
+		3, 5, 7, 9, 11
 	};
 
 	int		level_;
@@ -31,6 +31,7 @@ private:
 
 	typedef struct {
 		Color world_grid;
+		Color worldgrid_frame;
 		Color snake_head;
 		Color snake_body;
 		Color snake_dead_head;
@@ -38,42 +39,63 @@ private:
 		Color target;
 		Color progress_bar;
 		Color progress_frame;
-		Color worldgrid_frame;
 	} ColorMap;
 
 	ColorMap colors_[N_LEVELS] {
 		{
-			{ 255, 19, 57 },
+			{ 10, 10, 10},
 			Colors::White,
-			Colors::LightGreen,
-			Colors::White,
-			Colors::Gray,
-			Colors::Green,
-			Colors::Green,
-			Colors::Gray,
-			Colors::LightGreen
-		},
-		{
-			{ 19, 255, 57 },
-			Colors::Pink,
-			Colors::Red,
-			Colors::White,
-			Colors::Gray,
-			Colors::Orange,
-			Colors::Green,
-			Colors::Gray,
-			Colors::LightGreen
-		},
-		{
-			{ 19, 19, 255 },
 			Colors::White,
 			Colors::LightBlue,
 			Colors::White,
 			Colors::Gray,
+			Colors::Magenta,
+			Colors::LightBlue,
+			Colors::Gray,
+		},
+		{
+			{ 20, 20, 20},
+			Colors::LightGreen,
+			Colors::LightGreen,
+			Colors::Pink,
+			Colors::White,
+			Colors::Gray,
+			Colors::Purple,
+			Colors::Pink,
+			Colors::Gray,
+		},
+		{
+			{ 30, 30, 30},
+			Colors::Yellow,
+			Colors::Yellow,
+			Colors::Green,
+			Colors::White,
+			Colors::Gray,
 			Colors::Red,
 			Colors::Green,
 			Colors::Gray,
-			Colors::LightGreen
+		},
+		{
+			{ 40, 40, 40},
+			Colors::Orange,
+			Colors::Orange,
+			Colors::LightBrown,
+			Colors::White,
+			Colors::Gray,
+			Colors::Yellow,
+			Colors::LightBrown,
+			Colors::Gray,
+		},
+		{
+			{ 50, 50, 50},
+			Colors::Purple,
+			Colors::Purple,
+			Colors::LightBlue,
+			Colors::White,
+			Colors::Gray,
+			Colors::Gray,
+			Colors::LightBlue,
+			Colors::Gray,
 		}
 	};
 };

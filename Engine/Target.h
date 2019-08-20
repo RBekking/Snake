@@ -20,8 +20,6 @@ public:
 private:
 	static constexpr Color DEFAULT_COLOR = Colors::Orange;
 
-	void _ReColor(const Color& new_color);
-
 	Player* player_;
 	ColorManager* colors_;
 	std::mt19937 rng_;

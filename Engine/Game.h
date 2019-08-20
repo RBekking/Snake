@@ -61,12 +61,12 @@ private:
 	static constexpr int N_TARGETS = 1;
 	void RestartGame();
 
-	WorldGrid    grid			{ Location{150, 60} };
-	ProgressBar  progress_bar	{ Location{150, 40} };
-	Player       player;
-	Target		 targets[N_TARGETS];
-	InputBuffer	 in_buff		{ Location{1, 0} };
-	ColorManager colormgr		{ 0 };
-	int          frame_counter  { 0 };
-	std::mt19937 rng            { std::random_device()() };
+	WorldGrid    grid_;
+	ProgressBar  progress_bar_;
+	Player       player_;
+	Target		 targets_[N_TARGETS];
+	InputBuffer	 in_buff_;
+	ColorManager colormgr_;
+	int          frame_counter_;
+	std::mt19937 rng_;
 };

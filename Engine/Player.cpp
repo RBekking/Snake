@@ -31,14 +31,28 @@ Location Player::Segment::GetLocation() const
 	return location_;
 }
 
+Player::Player() :
+	start_location_(Location{ 0, 0 }),
+	n_segments_(INIT_N_SEGMENTS),
+	grid_(nullptr),
+	colors_(nullptr),
+	next_location_(Location{ INIT_NEXT_LOCATION_X, INIT_NEXT_LOCATION_Y }),
+	collided_(false),
+	rng_(nullptr),
+	x_dist_(-1,1),
+	y_dist_(-1,1),
+	segment_color_intensity_(INIT_SEGMENT_COLOR_VAL)
+{
+}
+
 void Player::Reset(const Location &start_location)
 {
 	n_segments_ = INIT_N_SEGMENTS;
 	next_location_ = start_location;
 	collided_ = false;
 	segment_color_intensity_ = INIT_SEGMENT_COLOR_VAL;
-	colors_->UpdateLevel(n_segments_);
-	if (colors_->IsUpdated()) {
+	colors_->CheckPlayerLength(n_segments_);
+	if (colors_->LevelUpdated()) {
 		segments_[0].Init(start_location_, colors_->GetSnakeHead());
 		for (int i = 1; i < n_segments_; ++i) {
 			segments_[i].Init(start_location_, _CalcSegmentColor(i, colors_->GetSnakeBody()));
@@ -84,8 +98,8 @@ void Player::MoveBy(const Location& delta_loc)
 void Player::Grow()
 {
 	if (n_segments_ < N_SEGMENTS_MAX) {
-		colors_->UpdateLevel(n_segments_);
-		if (colors_->IsUpdated()) {
+		colors_->CheckPlayerLength(n_segments_);
+		if (colors_->LevelUpdated()) {
 			_ReColor(colors_->GetSnakeHead(), colors_->GetSnakeBody());
 		}
 		segments_[n_segments_].Init(segments_[n_segments_ - 1].GetLocation(), _CalcSegmentColor(n_segments_, colors_->GetSnakeBody()));

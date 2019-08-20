@@ -6,7 +6,7 @@ ColorManager::ColorManager(const int level) :
 {
 }
 
-void ColorManager::UpdateLevel(const int player_length)
+void ColorManager::CheckPlayerLength(const int player_length)
 {
 	for (int i = 0; i < N_LEVELS; ++i) {
 		if (player_length == level_to_length_map[i]) {
@@ -19,7 +19,7 @@ void ColorManager::UpdateLevel(const int player_length)
 	return;
 }
 
-bool ColorManager::IsUpdated()
+bool ColorManager::LevelUpdated()
 {
 	bool ret_val = updated_;
 	updated_ = false;

@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="ChiliException.h" />
     <ClInclude Include="ChiliWin.h" />
+    <ClInclude Include="ColorManager.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="Game.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="WorldGrid.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ColorManager.cpp" />
     <ClCompile Include="DXErr.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GraphicalEntity.cpp" />

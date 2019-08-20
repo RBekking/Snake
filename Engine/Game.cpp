@@ -18,34 +18,38 @@
  *	You should have received a copy of the GNU General Public License					  *
  *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
  ******************************************************************************************/
-#include "MainWindow.h"
 #include "Game.h"
-#include "Location.h"
-#include "WorldGrid.h"
-#include "Player.h"
-#include "InputBuffer.h"
-#include <time.h>
 
 Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
-	gfx(wnd)
+	gfx(wnd),
+	grid_(Location{ 150, 60 }),
+	progress_bar_(Location{ 150, 40 }),
+	in_buff_(Location{ 1, 0 }),
+	colormgr_(0),
+	frame_counter_(0),
+	rng_(std::random_device()())
 {
-	grid.WithGraphics(gfx);
-	player.WithGrid(grid);
-	player.WithRNG(rng);
-	player.Reset();
+	grid_.WithGraphics(gfx);
+	grid_.WithColorManager(colormgr_);
+	player_.WithGrid(grid_);
+	player_.WithColorManager(colormgr_);
+	player_.WithRNG(rng_);
+	colormgr_.CheckPlayerLength(player_.GetLength());
+	player_.Reset(Location{PLAYER_INITIAL_X, PLAYER_INITIAL_Y});
 
 	for (int i = 0; i < N_TARGETS; ++i) {
-		targets[i].WithGrid(grid);
-		targets[i].WithRNG(rng);
-		targets[i].WithPlayer(player);
-		targets[i].Reposition();
+		targets_[i].WithGrid(grid_);
+		targets_[i].WithColorManager(colormgr_);
+		targets_[i].WithRNG(rng_);
+		targets_[i].WithPlayer(player_);
+		targets_[i].Reposition();
 	}
 
-	progress_bar.WithGraphics(gfx);
-	progress_bar.WithPlayer(player);
-	
+	progress_bar_.WithColorManager(colormgr_);
+	progress_bar_.WithGraphics(gfx);
+	progress_bar_.WithPlayer(player_);
 }
 
 void Game::Go()
@@ -60,54 +64,59 @@ void Game::UpdateModel()
 {
 	HandleInput();
 
-	if (player.IsDead()) {
-		player.Decay(frame_counter, SNAKE_DEATH_FRAMES);
-		if (frame_counter > SNAKE_DEATH_FRAMES) {
-			frame_counter = 0;
+	if (player_.IsDead()) {
+		player_.Decay(frame_counter_, SNAKE_DEATH_FRAMES);
+		if (frame_counter_ > SNAKE_DEATH_FRAMES) {
+			frame_counter_ = 0;
 			RestartGame();
 		}
 	} 
 	else {
-		if (frame_counter >= SNAKE_MOVE_RATE) {
-			frame_counter = 0;
-			player.MoveBy(in_buff.Get());
+		if (frame_counter_ >= SNAKE_MOVE_RATE) {
+			frame_counter_ = 0;
+			player_.MoveBy(in_buff_.Get());
 			for (int i = 0; i < N_TARGETS; ++i) {
-				targets[i].HandleCollection();
+				targets_[i].HandleCollection();
 			}
 		}
 	}
-	++frame_counter;
+	++frame_counter_;
 }
 
 void Game::ComposeFrame()
 {	
-	player.Draw(frame_counter);
+	grid_.DrawBg();
+	player_.Draw(frame_counter_);
 	for (int i = 0; i < N_TARGETS; ++i) {
-		targets[i].Draw(frame_counter);
+		targets_[i].Draw(frame_counter_);
 	}
-	grid.Draw();
-	progress_bar.Draw(frame_counter);
+	grid_.DrawFg();
+	progress_bar_.Draw(frame_counter_);
 }
 
 void Game::HandleInput()
 {
 	if (wnd.kbd.KeyIsPressed(VK_UP)) {
-		in_buff.Push(Location(0, -1));
+		in_buff_.Push(Location(0, -1));
 	}
 	else if (wnd.kbd.KeyIsPressed(VK_DOWN)) {
-		in_buff.Push(Location(0, 1));
+		in_buff_.Push(Location(0, 1));
 	}
 
 	if (wnd.kbd.KeyIsPressed(VK_LEFT)) {
-		in_buff.Push(Location(-1, 0));
+		in_buff_.Push(Location(-1, 0));
 	}
 	else if (wnd.kbd.KeyIsPressed(VK_RIGHT)) {
-		in_buff.Push(Location(1, 0));
+		in_buff_.Push(Location(1, 0));
 	}
 }
 
 void Game::RestartGame()
 {
-	player.Reset();
-	in_buff.Reset(Location{1, 0});
+	player_.Reset(Location{ PLAYER_INITIAL_X, PLAYER_INITIAL_Y});
+	colormgr_.CheckPlayerLength(player_.GetLength());
+	for (int i = 0; i < N_TARGETS; ++i) {
+		targets_[i].Reposition();
+	}
+	in_buff_.Reset(Location{1, 0});
 }

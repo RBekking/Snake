@@ -1,6 +1,9 @@
 #include "WorldGrid.h"
-#include "Location.h"
-#include "Graphics.h"
+
+void WorldGrid::WithColorManager(ColorManager& colors)
+{
+	colors_ = &colors;
+}
 
 void WorldGrid::DrawCell(const Location& loc, const Color c)
 {
@@ -38,17 +41,26 @@ void WorldGrid::DrawFilledCell(const Location& loc, const Location& offset, cons
 	}
 }
 
-void WorldGrid::Draw(const unsigned int frame_counter)
+void WorldGrid::DrawFg(const unsigned int frame_counter)
 {
-	unsigned char c;
+	double c;
+	Color new_color;
+
 	for (int i = 0; i < 5; ++i) {
-		c = static_cast<unsigned char>((255 / 10) * i);
-		gfx_->DrawRectangleDim(location_.GetX() - i, location_.GetY() - i, (WIDTH * CELL_SIZE) + (2 * i), (HEIGHT * CELL_SIZE) + (2 * i), Color{ c, c, c });
+		c = static_cast<double>(i) / 10;
+		new_color = Colors::DimColor(colors_->GetWorldGridFrame(), c);
+		gfx_->DrawRectangleDim(location_.GetX() - i, location_.GetY() - i, (WIDTH * CELL_SIZE) + (2 * i), (HEIGHT * CELL_SIZE) + (2 * i), new_color);
 	}
 	for (int i = 5; i < 10; ++i) {
-		c = static_cast<unsigned char>((255 / 10) * (10 - i));
-		gfx_->DrawRectangleDim(location_.GetX() - i, location_.GetY() - i, (WIDTH * CELL_SIZE) + (2 * i), (HEIGHT * CELL_SIZE) + (2 * i), Color{ c, c, c });
+		c = static_cast<double>(10 - i) / 10;
+		new_color = Colors::DimColor(colors_->GetWorldGridFrame(), c);
+		gfx_->DrawRectangleDim(location_.GetX() - i, location_.GetY() - i, (WIDTH * CELL_SIZE) + (2 * i), (HEIGHT * CELL_SIZE) + (2 * i), new_color);
 	}
+}
+
+void WorldGrid::DrawBg(const unsigned int frame_counter)
+{
+	gfx_->DrawFilledRectDim(location_.GetX() + 1, location_.GetY() + 1, (WIDTH * CELL_SIZE) - 2, (HEIGHT * CELL_SIZE) - 2, colors_->GetWorldGrid());
 }
 
 bool WorldGrid::CheckInScreenBounds(const Location& loc)

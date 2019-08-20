@@ -1,5 +1,4 @@
 #include "Target.h"
-#include <random>
 
 Target::Target() :
 	Target(Location{ 0, 0 })
@@ -9,7 +8,7 @@ Target::Target() :
 Target::Target(const Location& loc) :
 	GridEntity(loc),
 	player_(nullptr),
-	color_(Colors::Orange),
+	colors_(nullptr),
 	rng_(std::random_device()()),
 	x_dist_(std::uniform_int_distribution<int>(0, WorldGrid::WIDTH - 1)),
 	y_dist_(std::uniform_int_distribution<int>(0, WorldGrid::HEIGHT - 1)),
@@ -27,13 +26,18 @@ void Target::WithPlayer(Player& player)
 	player_ = &player;
 }
 
+void Target::WithColorManager(ColorManager& colors)
+{
+	colors_ = &colors;
+}
+
 void Target::Draw(const int frame_number)
 {
 	if (Player::N_SEGMENTS_MAX == player_->GetLength()) {
 		grid_->DrawFilledCell(location_, Color(rand_color_(rng_), rand_color_(rng_), rand_color_(rng_)));
 	}
 	else {
-		grid_->DrawFilledCell(location_, color_);
+		grid_->DrawFilledCell(location_, colors_->GetTarget());
 	}
 }
 
@@ -43,11 +47,6 @@ void Target::HandleCollection()
 	if (player_->GetLocation() == location_) {
 		if ((Player::N_SEGMENTS_MAX) == player_->GetLength()) {
 			// Won the game!
-			Reposition();
-		}
-		else if ((Player::N_SEGMENTS_MAX - 1) == player_->GetLength()) {
-			color_ = Colors::Yellow;
-			player_->Grow();
 			Reposition();
 		}
 		else {

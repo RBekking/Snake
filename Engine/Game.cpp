@@ -36,7 +36,6 @@ Game::Game(MainWindow& wnd)
 	player_.WithGrid(grid_);
 	player_.WithColorManager(colormgr_);
 	player_.WithRNG(rng_);
-	colormgr_.CheckPlayerLength(player_.GetLength());
 	player_.Reset(Location{PLAYER_INITIAL_X, PLAYER_INITIAL_Y});
 
 	for (int i = 0; i < N_TARGETS; ++i) {
@@ -96,7 +95,7 @@ void Game::ComposeFrame()
 
 void Game::HandleInput()
 {
-	if (wnd.kbd.KeyIsPressed(VK_UP)) {
+	if (wnd.kbd.KeyIsPressed(VK_UP)) {		
 		in_buff_.Push(Location(0, -1));
 	}
 	else if (wnd.kbd.KeyIsPressed(VK_DOWN)) {

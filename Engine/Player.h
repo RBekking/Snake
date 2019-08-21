@@ -1,8 +1,10 @@
 #pragma once
+#pragma comment(lib, "winmm.lib")
 
 #include "Location.h"
 #include "WorldGrid.h"
 #include "ColorManager.h"
+#include <mmsystem.h>
 #include <random>
 
 class Player

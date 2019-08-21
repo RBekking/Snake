@@ -2,17 +2,81 @@
 
 ColorManager::ColorManager(const int level) :
 	level_(level),
-	updated_(false)
+	updated_(false),
+	colors_{
+		{
+			{ 10, 10, 10},
+			Colors::White,
+			Colors::White,
+			Colors::LightBlue,
+			Colors::White,
+			Colors::Gray,
+			Colors::Magenta,
+			Colors::LightBlue,
+			Colors::Gray,
+		},
+		{
+			{ 20, 20, 20},
+			Colors::LightGreen,
+			Colors::LightGreen,
+			Colors::Pink,
+			Colors::White,
+			Colors::Gray,
+			Colors::Purple,
+			Colors::Pink,
+			Colors::Gray,
+		},
+		{
+			{ 30, 30, 30},
+			Colors::Yellow,
+			Colors::Yellow,
+			Colors::Green,
+			Colors::White,
+			Colors::Gray,
+			Colors::Red,
+			Colors::Green,
+			Colors::Gray,
+		},
+		{
+			{ 40, 40, 40},
+			Colors::Orange,
+			Colors::Orange,
+			Colors::LightBrown,
+			Colors::White,
+			Colors::Gray,
+			Colors::Yellow,
+			Colors::LightBrown,
+			Colors::Gray,
+		},
+		{
+			{ 50, 50, 50},
+			Colors::Purple,
+			Colors::Purple,
+			Colors::LightBlue,
+			Colors::White,
+			Colors::Gray,
+			Colors::Gray,
+			Colors::LightBlue,
+			Colors::Gray,
+		}
+	}
 {
 }
 
 void ColorManager::CheckPlayerLength(const int player_length)
 {
 	for (int i = 0; i < N_LEVELS; ++i) {
-		if (player_length == level_to_length_map[i]) {
-			level_ = i;
-			updated_ = true;
-			return;
+		if ((player_length == level_to_length_map[i])) {
+			if (i > 0) {
+				level_ = i;
+				updated_ = true;
+				return;
+			}
+			else {
+				level_ = 0;
+				updated_ = false;
+				return;
+			}
 		}
 	}
 

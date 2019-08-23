@@ -13,3 +13,6 @@ I'm practicing my OO skills with this one.
 
 ## Known issues:
 - None... hmmm is it hiding somewhere?
+
+## Todo:
+- Place movable/rotateable patters of food for musical combo-system

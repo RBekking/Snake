@@ -58,8 +58,19 @@ ColorManager::ColorManager(const int level) :
 			Colors::Gray,
 			Colors::LightBlue,
 			Colors::Gray,
+		},
+		{
+			{ 60, 60, 60},
+			Colors::LightBrown,
+			Colors::LightBrown,
+			Colors::Green,
+			Colors::White,
+			Colors::Gray,
+			Colors::Magenta,
+			Colors::Green,
+			Colors::Gray,
 		}
-	}
+}
 {
 }
 

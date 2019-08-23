@@ -78,8 +78,8 @@ void Player::MoveBy(const Location& delta_loc)
 	Location new_location = next_location_ + delta_loc;
 
 	for (int i = n_segments_ - 1; i > 0; --i) {
-		if ((segments_[i].GetLocation() == new_location) ||  // Collision with self
-			(!grid_->CheckInGridBounds(new_location)))       // Collision with wall
+		if ((segments_[i].GetLocation() == new_location) || 	// Collision with self
+			(!grid_->CheckInGridBounds(new_location)))       		// Collision with wall
 		{
 			PlaySound(TEXT("sounds/die_sound.wav"), NULL, SND_ASYNC);
 			collided_ = true;

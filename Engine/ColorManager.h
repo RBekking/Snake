@@ -21,9 +21,9 @@ public:
 	Color GetWorldGridFrame() const;
 
 private:
-	static constexpr int N_LEVELS = 5;
+	static constexpr int N_LEVELS = 6;
 	static constexpr int level_to_length_map[N_LEVELS] {
-		5, 8, 11, 14, 17
+		3, 5, 8, 11, 14, 17
 	};
 
 	int		level_;

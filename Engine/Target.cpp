@@ -61,8 +61,11 @@ void Target::HandleCollection()
 
 void Target::Reposition()
 {
+	constexpr auto MAX_RETRIES = 100UL;
+	unsigned long retry_count = 0;
 	rng_ = std::mt19937(std::random_device()());
 	do {
 		location_ = Location{ x_dist_(rng_), y_dist_(rng_) };
-	} while (player_->LocationIsOnSnake(location_));
+		++retry_count;
+	} while ((retry_count < MAX_RETRIES) || (player_->LocationIsOnSnake(location_)));
 }

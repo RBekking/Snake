@@ -12,5 +12,4 @@ I'm practicing my OO skills with this one.
 - Final food-item twinkels randomly
 
 ## Known issues:
-- Sometimes the snake doesn't eat the food but passes right through it
-- Collides with tail even when it appears not to touch
+- Cannot grow beyond 100 segments. Updating to use heap instead of stack for storing segments object.

@@ -41,8 +41,14 @@ Player::Player() :
 	rng_(nullptr),
 	x_dist_(-1,1),
 	y_dist_(-1,1),
-	segment_color_intensity_(INIT_SEGMENT_COLOR_VAL)
+	segment_color_intensity_(INIT_SEGMENT_COLOR_VAL),
+	segments_(new Segment[N_SEGMENTS_MAX])
 {
+}
+
+Player::~Player()
+{
+	delete[] segments_;
 }
 
 void Player::Reset(const Location &start_location)
@@ -50,13 +56,11 @@ void Player::Reset(const Location &start_location)
 	n_segments_ = INIT_N_SEGMENTS;
 	next_location_ = start_location;
 	collided_ = false;
+	colors_->CheckPlayerLength(INIT_N_SEGMENTS);
 	segment_color_intensity_ = INIT_SEGMENT_COLOR_VAL;
-	colors_->CheckPlayerLength(n_segments_);
-	if (colors_->LevelUpdated()) {
-		segments_[0].Init(start_location_, colors_->GetSnakeHead());
-		for (int i = 1; i < n_segments_; ++i) {
-			segments_[i].Init(start_location_, _CalcSegmentColor(i, colors_->GetSnakeBody()));
-		}
+	segments_[0].Init(start_location_, colors_->GetSnakeHead());
+	for (int i = 1; i < n_segments_; ++i) {
+		segments_[i].Init(start_location_, _CalcSegmentColor(i, colors_->GetSnakeBody()));
 	}
 }
 
@@ -80,9 +84,11 @@ void Player::MoveBy(const Location& delta_loc)
 	Location new_location = next_location_ + delta_loc;
 
 	for (int i = n_segments_ - 1; i > 0; --i) {
-		if ((segments_[i].GetLocation() == new_location) ||  // Collision with self
-			(!grid_->CheckInGridBounds(new_location)))       // Collision with wall
+		if (((i < (n_segments_ - 1)) && 
+			(segments_[i].GetLocation() == new_location)) || 	// Collision with self
+			(!grid_->CheckInGridBounds(new_location)))       	// Collision with wall
 		{
+			PlaySound(TEXT("sounds/die_sound.wav"), NULL, SND_ASYNC);
 			collided_ = true;
 		}
 		segments_[i].Follow(segments_[i - 1]);
@@ -100,7 +106,11 @@ void Player::Grow()
 	if (n_segments_ < N_SEGMENTS_MAX) {
 		colors_->CheckPlayerLength(n_segments_);
 		if (colors_->LevelUpdated()) {
+			PlaySound(TEXT("sounds/next_level.wav"), NULL, SND_ASYNC);
 			_ReColor(colors_->GetSnakeHead(), colors_->GetSnakeBody());
+		}
+		else {
+			PlaySound(TEXT("sounds/eat_food.wav"), NULL, SND_ASYNC);
 		}
 		segments_[n_segments_].Init(segments_[n_segments_ - 1].GetLocation(), _CalcSegmentColor(n_segments_, colors_->GetSnakeBody()));
 		++n_segments_;
@@ -138,11 +148,16 @@ bool Player::IsDead() const
 
 bool Player::LocationIsOnSnake(const Location& loc) const
 {
+	if (loc == next_location_) {
+		return true;
+	}
+
 	for (int i = 0; i < n_segments_; ++i) {
 		if (loc == segments_[i].GetLocation()) {
 			return true;
 		}
 	}
+
 	return false;
 }
 

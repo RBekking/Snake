@@ -9,7 +9,7 @@
 
 class Player
 {
-static constexpr int INIT_N_SEGMENTS = 3;
+static constexpr int INIT_N_SEGMENTS = 13; // original 3
 static constexpr int INIT_NEXT_LOCATION_X = 0;
 static constexpr int INIT_NEXT_LOCATION_Y = 0;
 static constexpr int INIT_SEGMENT_COLOR_VAL = 128;
@@ -56,15 +56,15 @@ private:
 	void _ReColor(const Color& head_color, const Color& body_color);
 	Color _CalcSegmentColor(const int n_segment, const Color& base_color);
 
-	Location			start_location_;
-	int						n_segments_;
+	Location		start_location_;
+	int				n_segments_;
 	WorldGrid*		grid_;
 	ColorManager*	colors_;
-	Location			next_location_;
-	bool					collided_;
+	Location		next_location_;
+	bool			collided_;
 	std::mt19937*	rng_;
 	std::uniform_int_distribution<int> x_dist_;
 	std::uniform_int_distribution<int> y_dist_;
-	Segment				segments_[N_SEGMENTS_MAX];
-	int						segment_color_intensity_;
+	Segment			segments_[N_SEGMENTS_MAX];
+	int				segment_color_intensity_;
 };

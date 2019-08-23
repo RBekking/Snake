@@ -112,10 +112,10 @@ void Game::HandleInput()
 
 void Game::RestartGame()
 {
-	player_.Reset(Location{ PLAYER_INITIAL_X, PLAYER_INITIAL_Y});
+	player_.Reset(Location{ PLAYER_INITIAL_X, PLAYER_INITIAL_Y });
 	colormgr_.CheckPlayerLength(player_.GetLength());
 	for (int i = 0; i < N_TARGETS; ++i) {
 		targets_[i].Reposition();
 	}
-	in_buff_.Reset(Location{1, 0});
+	in_buff_.Reset(Location(1, 0));
 }

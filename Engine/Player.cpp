@@ -142,11 +142,16 @@ bool Player::IsDead() const
 
 bool Player::LocationIsOnSnake(const Location& loc) const
 {
+	if (loc == next_location_) {
+		return true;
+	}
+
 	for (int i = 0; i < n_segments_; ++i) {
 		if (loc == segments_[i].GetLocation()) {
 			return true;
 		}
 	}
+
 	return false;
 }
 

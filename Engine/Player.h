@@ -9,7 +9,7 @@
 
 class Player
 {
-static constexpr int INIT_N_SEGMENTS = 13; // original 3
+static constexpr int INIT_N_SEGMENTS = 3;
 static constexpr int INIT_NEXT_LOCATION_X = 0;
 static constexpr int INIT_NEXT_LOCATION_Y = 0;
 static constexpr int INIT_SEGMENT_COLOR_VAL = 128;

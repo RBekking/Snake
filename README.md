@@ -12,4 +12,4 @@ I'm practicing my OO skills with this one.
 - Final food-item twinkels randomly
 
 ## Known issues:
-- Cannot grow beyond 100 segments. Updating to use heap instead of stack for storing segments object.
+- None... hmmm is it hiding somewhere?

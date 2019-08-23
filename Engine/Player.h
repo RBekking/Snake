@@ -9,16 +9,17 @@
 
 class Player
 {
-static constexpr int INIT_N_SEGMENTS = 3;
+static constexpr int INIT_N_SEGMENTS = 400 - 2;
 static constexpr int INIT_NEXT_LOCATION_X = 0;
 static constexpr int INIT_NEXT_LOCATION_Y = 0;
 static constexpr int INIT_SEGMENT_COLOR_VAL = 128;
 
 public:
 
-	static constexpr int N_SEGMENTS_MAX = 100; //(WorldGrid::WIDTH * WorldGrid::HEIGHT) - 1;
+	static constexpr int N_SEGMENTS_MAX = (20*20) - 2; //(WorldGrid::WIDTH * WorldGrid::HEIGHT) - 1;
 
 	Player();
+	virtual ~Player();
 	void Reset(const Location& start_location);
 	void WithGrid(WorldGrid& grid);
 	void WithColorManager(ColorManager& colors);
@@ -65,6 +66,6 @@ private:
 	std::mt19937*	rng_;
 	std::uniform_int_distribution<int> x_dist_;
 	std::uniform_int_distribution<int> y_dist_;
-	Segment			segments_[N_SEGMENTS_MAX];
 	int				segment_color_intensity_;
+	Segment*		segments_;
 };

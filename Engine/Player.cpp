@@ -41,8 +41,14 @@ Player::Player() :
 	rng_(nullptr),
 	x_dist_(-1,1),
 	y_dist_(-1,1),
-	segment_color_intensity_(INIT_SEGMENT_COLOR_VAL)
+	segment_color_intensity_(INIT_SEGMENT_COLOR_VAL),
+	segments_(new Segment[N_SEGMENTS_MAX])
 {
+}
+
+Player::~Player()
+{
+	delete[] segments_;
 }
 
 void Player::Reset(const Location &start_location)

@@ -19,6 +19,13 @@ Location& Location::operator+=(const Location& rhs)
 	return *this;
 }
 
+Location& Location::operator-=(const Location& rhs)
+{
+	x_ -= rhs.GetX();
+	y_ -= rhs.GetY();
+	return *this;
+}
+
 int Location::GetX() const
 {
 	return x_;

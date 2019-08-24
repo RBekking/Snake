@@ -5,7 +5,8 @@ public:
 	Location();
 	Location(const int x, const int y);
 	Location& operator+=(const Location& rhs);
-	
+	Location& operator-=(const Location& rhs);
+
 	int GetX() const;
 	int GetY() const;
 

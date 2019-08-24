@@ -109,9 +109,6 @@ void Player::Grow()
 			PlaySound(TEXT("sounds/next_level.wav"), NULL, SND_ASYNC);
 			_ReColor(colors_->GetSnakeHead(), colors_->GetSnakeBody());
 		}
-		else {
-			PlaySound(TEXT("sounds/eat_food.wav"), NULL, SND_ASYNC);
-		}
 		segments_[n_segments_].Init(segments_[n_segments_ - 1].GetLocation(), _CalcSegmentColor(n_segments_, colors_->GetSnakeBody()));
 		++n_segments_;
 	}

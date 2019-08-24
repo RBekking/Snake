@@ -58,15 +58,14 @@ private:
 	static constexpr unsigned int SNAKE_DEATH_FRAMES = 100;
 	static constexpr int PLAYER_INITIAL_X = 0;
 	static constexpr int PLAYER_INITIAL_Y = 0;
-	static constexpr int N_TARGETS = 1;
 	void RestartGame();
 
 	WorldGrid    grid_;
 	ProgressBar  progress_bar_;
 	Player       player_;
-	Target		 targets_[N_TARGETS];
+	Target		 target_;
 	InputBuffer	 in_buff_;
 	ColorManager colormgr_;
-	int          frame_counter_;
+	int          animation_frame_counter_;
 	std::mt19937 rng_;
 };

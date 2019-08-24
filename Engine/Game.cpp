@@ -28,7 +28,7 @@ Game::Game(MainWindow& wnd)
 	progress_bar_(Location{ 150, 40 }),
 	in_buff_(Location{ 1, 0 }),
 	colormgr_(0),
-	frame_counter_(0),
+	animation_frame_counter_(0),
 	rng_(std::random_device()())
 {
 	grid_.WithGraphics(gfx);
@@ -38,13 +38,11 @@ Game::Game(MainWindow& wnd)
 	player_.WithRNG(rng_);
 	player_.Reset(Location{PLAYER_INITIAL_X, PLAYER_INITIAL_Y});
 
-	for (int i = 0; i < N_TARGETS; ++i) {
-		targets_[i].WithGrid(grid_);
-		targets_[i].WithColorManager(colormgr_);
-		targets_[i].WithRNG(rng_);
-		targets_[i].WithPlayer(player_);
-		targets_[i].Reposition();
-	}
+	target_.WithGrid(grid_);
+	target_.WithColorManager(colormgr_);
+	target_.WithRNG(rng_);
+	target_.WithPlayer(player_);
+	target_.Reposition();
 
 	progress_bar_.WithColorManager(colormgr_);
 	progress_bar_.WithGraphics(gfx);
@@ -64,33 +62,30 @@ void Game::UpdateModel()
 	HandleInput();
 
 	if (player_.IsDead()) {
-		player_.Decay(frame_counter_, SNAKE_DEATH_FRAMES);
-		if (frame_counter_ > SNAKE_DEATH_FRAMES) {
-			frame_counter_ = 0;
+		player_.Decay(animation_frame_counter_, SNAKE_DEATH_FRAMES);
+		if (animation_frame_counter_ > SNAKE_DEATH_FRAMES) {
+			animation_frame_counter_ = 0;
 			RestartGame();
 		}
 	} 
 	else {
-		if (frame_counter_ >= SNAKE_MOVE_RATE) {
-			frame_counter_ = 0;
+		if (animation_frame_counter_ >= SNAKE_MOVE_RATE) {
+			animation_frame_counter_ = 0;
 			player_.MoveBy(in_buff_.Get());
-			for (int i = 0; i < N_TARGETS; ++i) {
-				targets_[i].HandleCollection();
-			}
+			target_.HandleCollection();
 		}
 	}
-	++frame_counter_;
+	target_.Update();
+	++animation_frame_counter_;
 }
 
 void Game::ComposeFrame()
 {	
 	grid_.DrawBg();
-	player_.Draw(frame_counter_);
-	for (int i = 0; i < N_TARGETS; ++i) {
-		targets_[i].Draw(frame_counter_);
-	}
+	player_.Draw(animation_frame_counter_);
+	target_.DrawChord(animation_frame_counter_);
 	grid_.DrawFg();
-	progress_bar_.Draw(frame_counter_);
+	progress_bar_.Draw(animation_frame_counter_);
 }
 
 void Game::HandleInput()
@@ -114,8 +109,6 @@ void Game::RestartGame()
 {
 	player_.Reset(Location{ PLAYER_INITIAL_X, PLAYER_INITIAL_Y });
 	colormgr_.CheckPlayerLength(player_.GetLength());
-	for (int i = 0; i < N_TARGETS; ++i) {
-		targets_[i].Reposition();
-	}
+	target_.Reposition();
 	in_buff_.Reset(Location(1, 0));
 }

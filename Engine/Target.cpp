@@ -59,7 +59,7 @@ void Target::Draw(const int frame_number)
 		grid_->DrawFilledCell(location_, Color(rand_color_(*rng_), rand_color_(*rng_), rand_color_(*rng_)));
 	}
 	else {
-		grid_->DrawFilledCell(location_, colors_->GetTarget());
+		grid_->DrawFilledCell(location_, colors_->GetTargetNote(0));
 	}
 }
 

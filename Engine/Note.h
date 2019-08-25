@@ -16,18 +16,19 @@ namespace musical {
 	class Note {
 	public:
 		Note();
-		Note(const Location& location, const musical_pitch_t pitch, const Color& color);
+		Note(const ::Location& location, const musical_pitch_t pitch, const Color& color, const Color& hit_color);
 		void Reset();
-		void Draw(const Location& offset, WorldGrid& grid);
-		Location RelativeLocation() const;
+		void Draw(const ::Location& offset, WorldGrid& grid);
+		::Location RelativeLocation() const;
 		bool IsHit() const;
-		bool IsOnNote(const Location& location);
+		bool IsOnNote(const ::Location& location);
 
 	private:
 		bool			hit_;
 		musical_pitch_t pitch_;
 		Color			color_;
-		Location		location_;
+		Color			hit_color_;
+		::Location		location_;
 	};
 
 	extern Note note_c4;

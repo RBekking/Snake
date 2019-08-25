@@ -3,73 +3,38 @@
 ColorManager::ColorManager(const int level) :
 	level_(level),
 	updated_(false),
-	colors_{
-		{
-			{ 10, 10, 10},
-			Colors::White,
-			Colors::White,
-			Colors::LightBlue,
-			Colors::White,
-			Colors::Gray,
-			Colors::Magenta,
-			Colors::LightBlue,
-			Colors::Gray,
-		},
-		{
-			{ 20, 20, 20},
-			Colors::LightGreen,
-			Colors::LightGreen,
-			Colors::Pink,
-			Colors::White,
-			Colors::Gray,
-			Colors::Purple,
-			Colors::Pink,
-			Colors::Gray,
-		},
-		{
-			{ 30, 30, 30},
-			Colors::Yellow,
-			Colors::Yellow,
-			Colors::Green,
-			Colors::White,
-			Colors::Gray,
-			Colors::Red,
-			Colors::Green,
-			Colors::Gray,
-		},
-		{
-			{ 40, 40, 40},
-			Colors::Orange,
-			Colors::Orange,
-			Colors::LightBrown,
-			Colors::White,
-			Colors::Gray,
-			Colors::Yellow,
-			Colors::LightBrown,
-			Colors::Gray,
-		},
-		{
-			{ 50, 50, 50},
-			Colors::Purple,
-			Colors::Purple,
-			Colors::LightBlue,
-			Colors::White,
-			Colors::Gray,
-			Colors::Gray,
-			Colors::LightBlue,
-			Colors::Gray,
-		},
-		{
-			{ 60, 60, 60},
-			Colors::LightBrown,
-			Colors::LightBrown,
-			Colors::Green,
-			Colors::White,
-			Colors::Gray,
-			Colors::Magenta,
-			Colors::Green,
-			Colors::Gray,
-		}
+	world_grid_colors_{ 
+		{Color(43,43,43), Color(118,212,34)},
+		{Color(43,43,43), Color(118,212,34)},
+		{Color(43,43,43), Color(118,212,34)},
+		{Color(43,43,43), Color(118,212,34)},
+		{Color(43,43,43), Color(118,212,34)},
+},
+	player_colors_{ 
+		{Color(237,92,38), Color(237,92,38), Colors::White, Colors::Gray},
+		{Color(237,92,38), Color(237,92,38), Colors::White, Colors::Gray},
+		{Color(237,92,38), Color(237,92,38), Colors::White, Colors::Gray},
+		{Color(237,92,38), Color(237,92,38), Colors::White, Colors::Gray},
+		{Color(237,92,38), Color(237,92,38), Colors::White, Colors::Gray},
+	},
+	target_colors_{ 
+		{{{Color(118,212,34)},{Color(27,164,101)},{Color(237,92,38)}}, 
+         {{Colors::White},    {Colors::White},    {Colors::White}}},
+		{{{Color(118,212,34)},{Color(27,164,101)},{Color(237,92,38)}},
+		 {{Colors::White},    {Colors::White},    {Colors::White}}},
+		{{{Color(118,212,34)},{Color(27,164,101)},{Color(237,92,38)}},
+		 {{Colors::White},    {Colors::White},    {Colors::White}}},
+		{{{Color(118,212,34)},{Color(27,164,101)},{Color(237,92,38)}},
+		 {{Colors::White},    {Colors::White},    {Colors::White}}},
+		{{{Color(118,212,34)},{Color(27,164,101)},{Color(237,92,38)}},
+		 {{Colors::White},    {Colors::White},    {Colors::White}}},
+},
+	progressbar_colors_{
+		{Color(237,92,38), Color(237,92,38)},
+		{Color(237,92,38), Color(237,92,38)},
+		{Color(237,92,38), Color(237,92,38)},
+		{Color(237,92,38), Color(237,92,38)},
+		{Color(237,92,38), Color(237,92,38)},
 }
 {
 }
@@ -104,45 +69,50 @@ bool ColorManager::LevelUpdated()
 
 Color ColorManager::GetWorldGrid() const
 {
-	return colors_[level_].world_grid;
-}
-
-Color ColorManager::GetSnakeHead() const
-{
-	return colors_[level_].snake_head;
-}
-
-Color ColorManager::GetSnakeBody() const
-{
-	return colors_[level_].snake_body;
-}
-
-Color ColorManager::GetSnakeDeadHead() const
-{
-	return colors_[level_].snake_dead_head;
-}
-
-Color ColorManager::GetSnakeDeadBody() const
-{
-	return colors_[level_].snake_dead_body;
-}
-
-Color ColorManager::GetTarget() const
-{
-	return colors_[level_].target;
-}
-
-Color ColorManager::GetProgressBar() const
-{
-	return colors_[level_].progress_bar;
-}
-
-Color ColorManager::GetProgressFrame() const
-{
-	return colors_[level_].progress_frame;
+	return world_grid_colors_[level_].grid;
 }
 
 Color ColorManager::GetWorldGridFrame() const
 {
-	return colors_[level_].worldgrid_frame;
+	return world_grid_colors_[level_].frame;
+}
+
+Color ColorManager::GetSnakeHead() const
+{
+	return player_colors_[level_].head;
+}
+
+Color ColorManager::GetSnakeBody() const
+{
+	return player_colors_[level_].body;
+}
+
+Color ColorManager::GetSnakeDeadHead() const
+{
+	return player_colors_[level_].dead_head;
+}
+
+Color ColorManager::GetSnakeDeadBody() const
+{
+	return player_colors_[level_].dead_body;
+}
+
+Color ColorManager::GetTargetNote(const int note) const
+{
+	return target_colors_[level_].notes[note];
+}
+
+Color ColorManager::GetTargetNoteHit(const int note) const
+{
+	return target_colors_[level_].notes_hit[note];
+}
+
+Color ColorManager::GetProgressBar() const
+{
+	return progressbar_colors_[level_].bar;
+}
+
+Color ColorManager::GetProgressFrame() const
+{
+	return progressbar_colors_[level_].frame;
 }

@@ -1,22 +1,23 @@
 #pragma once
 
-#include "GridEntity.h"
 #include "Location.h"
 #include "Player.h"
 #include "Note.h"
 #include "Chord.h"
 #include "FrameTimer.h"
+#include "WorldGrid.h"
 #include <random>
 
-class Target : public GridEntity
+class Target
 {
 public:
 	Target();
 	explicit Target(const Location& loc);
+	void WithGrid(WorldGrid& grid);
 	void WithRNG(std::mt19937& rng);
 	void WithPlayer(Player& player);
 	void WithColorManager(ColorManager& colors);
-	void Draw(const int frame_number = 0) override;
+	void Draw(const int frame_number = 0);
 	void DrawChord(const int frame_number = 0);
 	void HandleCollection();
 	void Update();
@@ -25,6 +26,8 @@ public:
 private:
 	static constexpr Color DEFAULT_COLOR = Colors::Orange;
 
+	Location		location_;
+	WorldGrid*		grid_;
 	Player*			player_;
 	ColorManager*	colors_;
 	musical::Chord 	chord_;

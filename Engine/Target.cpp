@@ -5,11 +5,12 @@ Target::Target() :
 {
 }
 
-Target::Target(const Location& loc) :
-	GridEntity(loc),
+Target::Target(const Location& location) :
+	location_(location),
+	grid_(nullptr),
 	player_(nullptr),
 	colors_(nullptr),
-	chord_(loc),
+	chord_(location),
 	timer_(FrameTimer::infinity),
 	rng_(std::random_device()()),
 	x_dist_(std::uniform_int_distribution<int>(0, WorldGrid::WIDTH - 1)),
@@ -19,6 +20,11 @@ Target::Target(const Location& loc) :
 	chord_.AddNote(musical::note_c4);
 	chord_.AddNote(musical::note_e4);
 	chord_.AddNote(musical::note_g4);
+}
+
+void Target::WithGrid(WorldGrid& grid)
+{
+	grid_ = &grid;
 }
 
 void Target::WithRNG(std::mt19937& rng)

@@ -4,8 +4,9 @@
 #include "Location.h"
 #include "WorldGrid.h"
 #include "ColorManager.h"
-#include <mmsystem.h>
 #include <random>
+
+#include <mmsystem.h>
 
 class Player
 {
@@ -20,18 +21,21 @@ public:
 
 	Player();
 	virtual ~Player();
-	void Reset(const Location& start_location);
+	void Reset(const Location& start_location = Location{ 0,0 });
+
 	void WithGrid(WorldGrid& grid);
 	void WithColorManager(ColorManager& colors);
 	void WithRNG(std::mt19937& rng);
+
+	void Draw(const int frame_number = 0);
+
 	void MoveBy(const Location& delta_loc);
 	void Grow();
-	void Draw(const int frame_number);
-	Location GetLocation() const;
-	int GetLength() const;
+	void Decay(const int frame_counter, const int max_death_frames);
 	bool IsDead() const;
 	bool LocationIsOnSnake(const Location& loc) const;
-	void Decay(const int frame_counter, const int max_death_frames);
+	Location GetLocation() const;
+	int GetLength() const;
 
 private:
 
@@ -54,8 +58,8 @@ private:
 
 private:
 
-	void _ReColor(const Color& head_color, const Color& body_color);
 	Color _CalcSegmentColor(const int n_segment, const Color& base_color);
+	void _ReColor(const Color& head_color, const Color& body_color);
 
 	Location		start_location_;
 	int				n_segments_;

@@ -42,7 +42,7 @@ Game::Game(MainWindow& wnd)
 	target_.WithColorManager(colormgr_);
 	target_.WithRNG(rng_);
 	target_.WithPlayer(player_);
-	target_.Reposition();
+	target_.Reset();
 
 	progress_bar_.WithColorManager(colormgr_);
 	progress_bar_.WithGraphics(gfx);
@@ -109,6 +109,6 @@ void Game::RestartGame()
 {
 	player_.Reset(Location{ PLAYER_INITIAL_X, PLAYER_INITIAL_Y });
 	colormgr_.CheckPlayerLength(player_.GetLength());
-	target_.Reposition();
+	target_.Reset();
 	in_buff_.Reset(Location(1, 0));
 }
